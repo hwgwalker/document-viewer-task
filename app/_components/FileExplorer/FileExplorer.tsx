@@ -7,7 +7,6 @@ type FileExplorerProps = ComponentPropsWithoutRef<"table"> & {
 };
 
 export function FileExplorer({ data }: FileExplorerProps) {
-  //   const [sortedItems, setSortedItems] = useState(data);
   const [sortBy, setSortBy] = useState<"type" | "name" | "date" | null>(null);
 
   const sortedItems = useMemo(() => {
@@ -16,6 +15,9 @@ export function FileExplorer({ data }: FileExplorerProps) {
     switch (sortBy) {
       case "name":
         sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "type":
+        sorted.sort((a, b) => a.type.localeCompare(b.type));
         break;
     }
 
@@ -26,7 +28,7 @@ export function FileExplorer({ data }: FileExplorerProps) {
     <table>
       <thead>
         <tr>
-          <th>File Type</th>
+          <th onClick={() => setSortBy("type")}>File Type</th>
           <th onClick={() => setSortBy("name")}>Name</th>
           <th>Date Added</th>
         </tr>
