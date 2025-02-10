@@ -19,6 +19,14 @@ export function FileExplorer({ data }: FileExplorerProps) {
       case "type":
         sorted.sort((a, b) => a.type.localeCompare(b.type));
         break;
+      case "date":
+        sorted.sort((a, b) => {
+          if (!a.added && !b.added) return 0;
+          else if (!a.added) return 1;
+          else if (!b.added) return -1;
+
+          return new Date(b.added).getTime() - new Date(a.added).getTime();
+        });
     }
 
     return sorted;
@@ -30,7 +38,7 @@ export function FileExplorer({ data }: FileExplorerProps) {
         <tr>
           <th onClick={() => setSortBy("type")}>File Type</th>
           <th onClick={() => setSortBy("name")}>Name</th>
-          <th>Date Added</th>
+          <th onClick={() => setSortBy("date")}>Date Added</th>
         </tr>
       </thead>
       <tbody>
