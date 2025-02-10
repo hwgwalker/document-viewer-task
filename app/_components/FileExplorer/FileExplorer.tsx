@@ -1,4 +1,11 @@
-export function FileExplorer() {
+import { FileType } from "@/app/_types/FileDataType";
+import { ComponentPropsWithoutRef } from "react";
+
+type FileExplorerProps = ComponentPropsWithoutRef<"table"> & {
+  data?: FileType[];
+};
+
+export function FileExplorer({ data }: FileExplorerProps) {
   return (
     <table>
       <thead>
@@ -9,7 +16,16 @@ export function FileExplorer() {
         </tr>
       </thead>
 
-      <tbody></tbody>
+      <tbody>
+        {data &&
+          data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.type}</td>
+              <td>{item.name}</td>
+              <td>{item.added}</td>
+            </tr>
+          ))}
+      </tbody>
     </table>
   );
 }
