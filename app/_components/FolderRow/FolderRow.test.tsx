@@ -45,6 +45,8 @@ describe("FolderRow", () => {
 
     await userEvent.click(screen.getByText(/expenses$/i));
 
+    expect(screen.getByText("📂")).toBeInTheDocument();
+
     expect(screen.getByText(/doc$/i)).toBeInTheDocument();
     expect(screen.getByText(/Expenses claim form$/i)).toBeInTheDocument();
     expect(screen.getByText("2017-05-02")).toBeInTheDocument();
