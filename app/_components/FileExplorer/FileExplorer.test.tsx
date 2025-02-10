@@ -83,5 +83,17 @@ describe("FileExplorer", () => {
 
       expect(tdElements[1]).toHaveTextContent(/employee handbook$/i);
     });
+
+    it("should sort by type when 'file type' heading is clicked", async () => {
+      render(<FileExplorer data={mockData} />);
+
+      const fileHeading = screen.getByText(/file type$/i);
+
+      await userEvent.click(fileHeading);
+
+      const tdElements = screen.getAllByRole("cell");
+
+      expect(tdElements[0]).toHaveTextContent('📁');
+    });
   });
 });
