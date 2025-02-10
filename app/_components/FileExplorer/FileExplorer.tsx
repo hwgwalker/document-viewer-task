@@ -1,5 +1,6 @@
 import { FileType } from "@/app/_types/FileDataType";
 import { ComponentPropsWithoutRef } from "react";
+import { FileRow } from "../FileRow/FileRow";
 
 type FileExplorerProps = ComponentPropsWithoutRef<"table"> & {
   data?: FileType[];
@@ -16,16 +17,7 @@ export function FileExplorer({ data }: FileExplorerProps) {
         </tr>
       </thead>
 
-      <tbody>
-        {data &&
-          data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.type}</td>
-              <td>{item.name}</td>
-              <td>{item.added}</td>
-            </tr>
-          ))}
-      </tbody>
+      <tbody>{data && data.map((file, index) => <FileRow file={file} />)}</tbody>
     </table>
   );
 }
