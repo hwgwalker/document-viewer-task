@@ -15,7 +15,7 @@ export function FolderRow({ folder }: FolderRowProps) {
   return (
     <>
       <tr onClick={handleClick}>
-        <td>📁</td>
+        <td>{isOpen ? "📂" : "📁"}</td>
         <td>{folder.name}</td>
       </tr>
 
