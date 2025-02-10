@@ -1,15 +1,16 @@
 import { FileType } from "@/app/_types/FileDataType";
+import { ComponentPropsWithoutRef } from "react";
 
-type FileRowProps = {
+type FileRowProps = ComponentPropsWithoutRef<"tr"> & {
   file: FileType;
 };
 
-export function FileRow({ file }: FileRowProps) {
+export function FileRow({ file, className }: FileRowProps) {
   return (
-    <tr>
+    <tr className={`${className}`}>
       <td>{file.type}</td>
       <td>{file.name}</td>
-      <td>{file.added}</td>
+      <td >{file.added}</td>
     </tr>
   );
 }

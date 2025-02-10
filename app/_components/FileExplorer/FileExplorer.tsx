@@ -7,7 +7,7 @@ type FileExplorerProps = ComponentPropsWithoutRef<"table"> & {
   data?: FileType[];
 };
 
-export function FileExplorer({ data }: FileExplorerProps) {
+export function FileExplorer({ data, className }: FileExplorerProps) {
   const [sortBy, setSortBy] = useState<"type" | "name" | "date" | null>(null);
 
   const sortedItems = useMemo(() => {
@@ -34,15 +34,21 @@ export function FileExplorer({ data }: FileExplorerProps) {
   }, [sortBy]);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th onClick={() => setSortBy("type")}>File Type</th>
+    <table className={`table-fixed [&_td]:py-2 [&_td]:px-4 [&_tr]:border-b   ${className}`}>
+      <thead className="bg-slate-200">
+        <tr className="text-left [&_th]:cursor-pointer [&_th]:py-2 [&_th]:px-4 select-none">
+          <th onClick={() => setSortBy("type")} className="w-1/4">
+            File Type
+          </th>
           <th onClick={() => setSortBy("name")}>Name</th>
-          <th onClick={() => setSortBy("date")}>Date Added</th>
+          <th onClick={() => setSortBy("date")} className="w-1/6">
+            Date Added
+          </th>
         </tr>
       </thead>
-      <tbody>{sortedItems && sortedItems.map((item, index) => (item.type === "folder" ? <FolderRow folder={item} key={index} /> : <FileRow file={item} key={index} />))}</tbody>
+      <tbody className="bg-slate-50">
+        {sortedItems && sortedItems.map((item, index) => (item.type === "folder" ? <FolderRow folder={item} key={index} /> : <FileRow file={item} key={index} />))}
+      </tbody>
     </table>
   );
 }
