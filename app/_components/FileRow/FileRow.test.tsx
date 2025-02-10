@@ -9,7 +9,13 @@ const mockData = {
 
 describe("FileRow", () => {
   it("Should render the file data in cells", () => {
-    render(<FileRow file={mockData} />);
+    render(
+        <table>
+          <tbody>
+            <FileRow file={mockData} />
+          </tbody>
+        </table>
+      );
 
     // check if file type is rendered
     expect(screen.getByText(/pdf$/i)).toBeInTheDocument();
