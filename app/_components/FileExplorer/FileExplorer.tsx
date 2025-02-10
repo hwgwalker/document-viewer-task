@@ -16,8 +16,19 @@ export function FileExplorer({ data }: FileExplorerProps) {
           <th>Date Added</th>
         </tr>
       </thead>
-
-      <tbody>{data && data.map((file, index) => <FileRow file={file} />)}</tbody>
+      <tbody>
+        {data &&
+          data.map((file, index) =>
+            file.type === "folder" ? (
+              <tr key={index}>
+                <td>📁</td>
+                <td>{file.name}</td>
+              </tr>
+            ) : (
+              <FileRow file={file} key={index} />
+            )
+          )}
+      </tbody>
     </table>
   );
 }
