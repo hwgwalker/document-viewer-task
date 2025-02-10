@@ -93,7 +93,19 @@ describe("FileExplorer", () => {
 
       const tdElements = screen.getAllByRole("cell");
 
-      expect(tdElements[0]).toHaveTextContent('📁');
+      expect(tdElements[0]).toHaveTextContent("📁");
+    });
+
+    it("should sort by date when date heading is clicked", async () => {
+      render(<FileExplorer data={mockData} />);
+
+      const dateHeading = screen.getByText(/date added$/i);
+
+      await userEvent.click(dateHeading);
+
+      const tdElements = screen.getAllByRole("cell");
+
+      expect(tdElements[2]).toHaveTextContent("2017-01-06");
     });
   });
 });
