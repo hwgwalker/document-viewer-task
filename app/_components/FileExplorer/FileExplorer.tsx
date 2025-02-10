@@ -1,6 +1,7 @@
 import { FileType } from "@/app/_types/FileDataType";
 import { ComponentPropsWithoutRef, useMemo, useState } from "react";
 import { FileRow } from "../FileRow/FileRow";
+import { FolderRow } from "../FolderRow/FolderRow";
 
 type FileExplorerProps = ComponentPropsWithoutRef<"table"> & {
   data?: FileType[];
@@ -41,19 +42,7 @@ export function FileExplorer({ data }: FileExplorerProps) {
           <th onClick={() => setSortBy("date")}>Date Added</th>
         </tr>
       </thead>
-      <tbody>
-        {sortedItems &&
-          sortedItems.map((file, index) =>
-            file.type === "folder" ? (
-              <tr key={index}>
-                <td>📁</td>
-                <td>{file.name}</td>
-              </tr>
-            ) : (
-              <FileRow file={file} key={index} />
-            )
-          )}
-      </tbody>
+      <tbody>{sortedItems && sortedItems.map((item, index) => (item.type === "folder" ? <FolderRow folder={item} key={index} /> : <FileRow file={item} key={index} />))}</tbody>
     </table>
   );
 }
