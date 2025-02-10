@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { FileExplorer } from "./FileExplorer";
 import { FileType } from "@/app/_types/FileDataType";
+import userEvent from "@testing-library/user-event";
 
 const mockData = [
   {
     type: "pdf",
-    name: "Employee Handbook",
-    added: "2017-01-06",
+    name: "Public Holiday policy",
+    added: "2016-12-06",
   },
   {
     type: "folder",
@@ -19,12 +20,18 @@ const mockData = [
       },
     ],
   },
+  {
+    type: "pdf",
+    name: "Employee Handbook",
+    added: "2017-01-06",
+  },
 ];
 
 describe("FileExplorer", () => {
   /**
    *  Rendering
    */
+
   describe("Rendering", () => {
     it("Should render on the page", () => {
       render(<FileExplorer />);
@@ -40,21 +47,41 @@ describe("FileExplorer", () => {
       const tdElements = screen.getAllByRole("cell");
 
       expect(tdElements[0]).toHaveTextContent(/pdf$/i);
-      expect(tdElements[1]).toHaveTextContent(/employee handbook$/i);
-      expect(tdElements[2]).toHaveTextContent("2017-01-06");
+      expect(tdElements[1]).toHaveTextContent(/public Holiday policy$/i);
+      expect(tdElements[2]).toHaveTextContent("2016-12-06");
     });
 
     it("Should render files and folders correctly", () => {
       render(<FileExplorer data={mockData} />);
 
       // file
-      expect(screen.getByText(/pdf$/i)).toBeInTheDocument();
       expect(screen.getByText(/employee handbook$/i)).toBeInTheDocument();
       expect(screen.getByText("2017-01-06")).toBeInTheDocument();
 
       // folder
       expect(screen.getByText("📁")).toBeInTheDocument();
       expect(screen.getByText(/expenses$/i)).toBeInTheDocument();
+
+      // file
+      expect(screen.getByText(/public holiday policy$/i)).toBeInTheDocument();
+      expect(screen.getByText("2016-12-06")).toBeInTheDocument();
+    });
+  });
+
+  /**
+   * Sorting
+   */
+  describe("Sorting", () => {
+    it("Should sort by name when 'name' heading is clicked", async () => {
+      render(<FileExplorer data={mockData} />);
+
+      const nameHeading = screen.getByText(/name$/i);
+
+      await userEvent.click(nameHeading);
+
+      const tdElements = screen.getAllByRole("cell");
+
+      expect(tdElements[1]).toHaveTextContent(/employee handbook$/i);
     });
   });
 });
