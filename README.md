@@ -37,7 +37,7 @@ I'd likely add a new useState to control the sorting order ('ascending' / 'desce
 
 ### Filtering
 
-To filter items in the table, I would likely include a text input inside the `FileExplorer` component (outside of the table). Then I'd add state to manage the current filter and a function used to process filtering in a similar way to how the sorting is managed. 
+To filter items in the table, I would likely include a text input inside the `FileExplorer` component (outside of the table). Then I'd add state to manage the current filter and a function to process filtering in a similar way to how the sorting is managed. 
 
 The sorting function would then need to use the data returned from filtering.
 
